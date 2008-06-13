@@ -1,6 +1,6 @@
-require File.expand_path(File.join(File.dirname(__FILE__), 'test_helper'))
+# require File.expand_path(File.join(File.dirname(__FILE__), 'test_helper'))
 
-class ImanipTest < Test::Unit::TestCase
+class ImanipMagickTest < Test::Unit::TestCase
 
   def setup
     @portrait_image = new_imanip_image(portrait_image_path)
@@ -12,7 +12,7 @@ class ImanipTest < Test::Unit::TestCase
   end
 
   def test_should_raise_error_if_not_an_image
-    assert_raise(Imanip::Errors::NotAnImageError) do
+    assert_raise(Imanip::NotAnImageError) do
       new_imanip_image(__FILE__)
     end
   end
@@ -71,7 +71,7 @@ class ImanipTest < Test::Unit::TestCase
     assert_equal dimensions, @new_image.dimensions
   end
   
-  def test_crop_resize_should_crop_and_resize_image_to_exact_dimensions
+  def test_crop_resize_should_crop_and_resize_image_to_exact_dimensions_with_square_dimensions
     dimensions = [100,100]
     assert @landscape_image.crop_resize(new_image_path, :dimensions => dimensions)
     @new_image = new_imanip_image(new_image_path)
@@ -80,7 +80,7 @@ class ImanipTest < Test::Unit::TestCase
   
   
   def test_should_throw_errors_if_image_could_not_be_converted
-    assert_raise(Imanip::Errors::CouldNotConvertError) do
+    assert_raise(Imanip::CouldNotConvertError) do
        @portrait_image.resize(new_image_path, :v => "bad option")
     end
   end

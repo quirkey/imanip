@@ -76,7 +76,7 @@ module Imanip
       def identify(options = {})
         response = execute("#{execute_path}identify #{options_to_string(options)} #{@image_path}")
         matches = response.match(/(JPEG|PNG|GIF)\ (\d+)x(\d+)/)
-        raise Imanip::Errors::NotAnImageError, "Could not identify the image #{@image_path} as an image: #{response}" if matches.nil?
+        raise NotAnImageError, "Could not identify the image #{@image_path} as an image: #{response}" if matches.nil?
         @format = matches[1]
         @width = matches[2].to_i
         @height = matches[3].to_i
@@ -91,13 +91,13 @@ module Imanip
           /invalid argument/
         ]
         possible_errors.each do |error|
-          raise(Imanip::Errors::CouldNotConvertError, response + " when " + command) if response =~ error
+          raise(CouldNotConvertError, response + " when " + command) if response =~ error
         end
         # assert that the new file exits
-        File.readable?(to_file) ? to_file : raise(Imanip::Errors::CouldNotConvertError)
+        File.readable?(to_file) ? to_file : raise(CouldNotConvertError)
       end
 
-      protected
+      private
 
       def parse_size_options!
         @geometry = {}

@@ -1,6 +1,5 @@
 module Imanip
-  module Errors
-    class NotAnImageError < RuntimeError; end;
-    class CouldNotConvertError < RuntimeError; end;
-  end
+  class ImanipError < RuntimeError; end;
+  class NotAnImageError < ImanipError; end;
+  class CouldNotConvertError < ImanipError; end;
 end
