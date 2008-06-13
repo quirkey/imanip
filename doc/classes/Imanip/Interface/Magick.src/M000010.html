@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>identify (Imanip::Interface::Magick)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/imanip/imanip_magick.rb, line 76</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">identify</span>(<span class="ruby-identifier">options</span> = {})
+        <span class="ruby-identifier">response</span> = <span class="ruby-identifier">execute</span>(<span class="ruby-node">&quot;#{execute_path}identify #{options_to_string(options)} #{@image_path}&quot;</span>)
+        <span class="ruby-identifier">matches</span> = <span class="ruby-identifier">response</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp re">/(JPEG|PNG|GIF)\ (\d+)x(\d+)/</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">NotAnImageError</span>, <span class="ruby-node">&quot;Could not identify the image #{@image_path} as an image: #{response}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">matches</span>.<span class="ruby-identifier">nil?</span>
+        <span class="ruby-ivar">@format</span> = <span class="ruby-identifier">matches</span>[<span class="ruby-value">1</span>]
+        <span class="ruby-ivar">@width</span> = <span class="ruby-identifier">matches</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">to_i</span>
+        <span class="ruby-ivar">@height</span> = <span class="ruby-identifier">matches</span>[<span class="ruby-value">3</span>].<span class="ruby-identifier">to_i</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: README.txt</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>README.txt</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>README.txt
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Fri Jun 13 18:09:20 -0400 2008</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1>imanip</h1>
+<p>
+<a
+href="http://quirkey.sourceforge.com/imanip">quirkey.sourceforge.com/imanip</a>/
+<a href="http://github.com/quirkey/imanip">github.com/quirkey/imanip</a>/
+</p>
+<h2>DESCRIPTION:</h2>
+<p>
+Super-quick image resizing using the ImageMagick command line tools
+</p>
+<h2>FEATURES/PROBLEMS:</h2>
+<pre>
+ - Simple API
+ - 0% Overhead
+ - Uses the ImageMagick command line tools (convert, identify)
+
+        NOTE:
+        The API is going to be changing a lot as I try to lock down something really useful. As a quick git-er-done type doodad
+        it works really well, and I'm already using it on some very high volume production sites.
+</pre>
+<h2>SYNOPSIS:</h2>
+<pre>
+        First things, first, Tell me where you keep them:
+
+        # Rails: production|development|etc.rb
+        # or somewhere that gets loaded before you initialize
+
+        Imanip::Interface::Magick.execute_path = '/path/to/your/bins/' # eg /usr/local/bin/
+
+        With an image file at /dir/image.jpg
+
+        image = Imanip::Image.new('/dir/image.jpg')
+
+        This will run identify on the image and make sure its convert-able. If it cant read or interpret it it will raise an Imanip::NotAnImageError.
+        Once you have the image you can check some properties/attributes
+
+        image.width #=&gt; 410 (Fixnum)
+        image.height #=&gt; 100 (Fixnum)
+        image.format #=&gt; JPEG (String)
+
+        There are also some helpers to do some rule based cropping.
+
+        image.portrait? #=&gt; false
+        image.landscape? #=&gt; true
+        image.orientation #=&gt; :landscape
+
+        After that you can resize and whatever
+
+        image.resize('outputfile.jpg', :dimensions =&gt; [200,100])
+
+        I like crop_resize better. It crops AND resizes so you get an image of the exact pixel dimensions you desire.
+
+        image.crop_resize('/file/to/output.jpg', :width =&gt; 50, :height =&gt; 50) #=&gt; output file is an exact 50x50 image
+
+        You might also want to catch errors, because they will inevitably happen. Possible Errors
+        Imanip::Error # the root, the root, the root is on fire
+        Imanip::NotAnImageError # Descends from above, thrown during Imanip#Image.new
+        Imanip::CouldNotConvertError # Also from above, thrown if theres an issue with #resize or #crop_resize (options, etc.)
+
+        More examples coming soon.
+</pre>
+<h2>REQUIREMENTS:</h2>
+<pre>
+        You need ImageMagick. Really any version will do, but I am developing with ImageMagick 6.3.3.
+        http://www.imagemagick.org/script/download.php
+</pre>
+<h2>INSTALL:</h2>
+<pre>
+        First, install ImageMagick:
+        http://www.imagemagick.org/script/download.php
+
+        Make sure you get the command line tools:
+
+        $ which 'convert'
+
+        Imanip works as a gem or a plugin for Rails.
+
+        As a gem:
+
+        $ sudo gem install imanip
+
+        In Rails/environment.rb
+        config.gem 'imanip'
+
+        Or you can get the latest from github:
+        $ sudo gem sources -a http://gems.github.com
+        $ sudo gem install quirkey-imanip
+</pre>
+<h2>LICENSE:</h2>
+<p>
+(The MIT License)
+</p>
+<p>
+Copyright (c) 2008 Aaron Quint, Quirkey
+</p>
+<p>
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the
+&#8216;Software&#8217;), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to the
+following conditions:
+</p>
+<p>
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+</p>
+<p>
+THE SOFTWARE IS PROVIDED &#8216;AS IS&#8217;, WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+USE OR OTHER DEALINGS IN THE SOFTWARE.
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
