@@ -12,7 +12,7 @@ class ImanipTest < Test::Unit::TestCase
   end
 
   def test_should_raise_error_if_not_an_image
-    assert_raise(Quirkey::Imanip::Errors::NotAnImageError) do
+    assert_raise(Imanip::Errors::NotAnImageError) do
       new_imanip_image(__FILE__)
     end
   end
@@ -80,14 +80,14 @@ class ImanipTest < Test::Unit::TestCase
   
   
   def test_should_throw_errors_if_image_could_not_be_converted
-    assert_raise(Quirkey::Imanip::Errors::CouldNotConvertError) do
+    assert_raise(Imanip::Errors::CouldNotConvertError) do
        @portrait_image.resize(new_image_path, :v => "bad option")
     end
   end
   
   protected
   def new_imanip_image(path,interface = :magick)
-    Quirkey::Imanip::Image.new(path,interface)
+    Imanip::Image.new(path,interface)
   end
   
   
