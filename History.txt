@@ -1,3 +1,8 @@
+== 0.1.1 2008-06-13
+
+* 1 minor enhancement:
+  * Added rows and columns alias for width and height
+
 == 0.1.0 2008-06-13
 
 * 1 major enhancement:

@@ -17,6 +17,10 @@ class ImanipMagickTest < Test::Unit::TestCase
     end
   end
   
+  def test_should_return_an_imanip_image
+    assert @portrait_image.is_a?(Imanip::Image) 
+  end
+  
   def test_should_return_dimensions_as_array
     dimensions = @portrait_image.dimensions
     assert dimensions.is_a?(Array)

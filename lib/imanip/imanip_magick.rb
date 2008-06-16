@@ -13,6 +13,8 @@ module Imanip
         @image_path = path
         identify
       end
+      alias_method :columns, :width
+      alias_method :rows, :height
 
       def dimensions
         [width,height]
