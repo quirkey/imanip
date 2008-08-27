@@ -7,7 +7,7 @@ module Imanip
         attr_accessor :execute_path
       end
 
-      attr_reader :width, :height, :format
+      attr_reader :width, :height, :format, :image_path
 
       def initialize(path)
         @image_path = path
