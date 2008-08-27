@@ -86,7 +86,6 @@ module Imanip
 
       def convert(to_file,options = {})
         command = "#{execute_path}convert #{@image_path} #{options_to_string(options)} #{to_file}"
-        # puts command
         response = execute(command)
         # catch errors in response
         possible_errors = [
@@ -96,7 +95,7 @@ module Imanip
           raise(CouldNotConvertError, response + " when " + command) if response =~ error
         end
         # assert that the new file exits
-        File.readable?(to_file) ? to_file : raise(CouldNotConvertError)
+        File.readable?(to_file) ? Imanip::Image.new(to_file, :magick) : raise(CouldNotConvertError)
       end
 
       private

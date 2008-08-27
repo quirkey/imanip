@@ -82,6 +82,14 @@ class ImanipMagickTest < Test::Unit::TestCase
     assert_equal dimensions, @new_image.dimensions
   end
   
+  def test_crop_resize_should_return_a_imanip_image
+    dimensions = [100,100]
+    @new_image = @landscape_image.crop_resize(new_image_path, :dimensions => dimensions)
+    assert @new_image.is_a?(Imanip::Image)
+    assert_equal dimensions, @new_image.dimensions
+  end
+  
+  
   
   def test_should_throw_errors_if_image_could_not_be_converted
     assert_raise(Imanip::CouldNotConvertError) do
