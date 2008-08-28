@@ -2,6 +2,8 @@
 
 * minor enhancements
 	* Magick#convert now returns an imanip image
+	* Image#square?
+	* some inline documentation
 
 == 0.1.1 2008-06-13
 
