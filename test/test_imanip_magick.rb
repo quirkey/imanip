@@ -17,6 +17,10 @@ class ImanipMagickTest < Test::Unit::TestCase
     end
   end
   
+  def test_should_return_an_imanip_image
+    assert @portrait_image.is_a?(Imanip::Image) 
+  end
+  
   def test_should_return_dimensions_as_array
     dimensions = @portrait_image.dimensions
     assert dimensions.is_a?(Array)
@@ -77,6 +81,14 @@ class ImanipMagickTest < Test::Unit::TestCase
     @new_image = new_imanip_image(new_image_path)
     assert_equal dimensions, @new_image.dimensions
   end
+  
+  def test_crop_resize_should_return_a_imanip_image
+    dimensions = [100,100]
+    @new_image = @landscape_image.crop_resize(new_image_path, :dimensions => dimensions)
+    assert @new_image.is_a?(Imanip::Image)
+    assert_equal dimensions, @new_image.dimensions
+  end
+  
   
   
   def test_should_throw_errors_if_image_could_not_be_converted

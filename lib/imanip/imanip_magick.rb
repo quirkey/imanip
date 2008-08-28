@@ -7,13 +7,17 @@ module Imanip
         attr_accessor :execute_path
       end
 
-      attr_reader :width, :height, :format
-      
+      attr_reader :width, :height, :format, :image_path
+
       def initialize(path)
         @image_path = path
         identify
       end
       
+
+      alias_method :columns, :width
+      alias_method :rows, :height
+
       # Return the dimensions of the image as an array of Fixnums [width,height]
       def dimensions
         [width,height]
@@ -99,7 +103,6 @@ module Imanip
 
       def convert(to_file,options = {})
         command = "#{execute_path}convert #{@image_path} #{options_to_string(options)} #{to_file}"
-        # puts command
         response = execute(command)
         # catch errors in response
         possible_errors = [
@@ -109,7 +112,7 @@ module Imanip
           raise(CouldNotConvertError, response + " when " + command) if response =~ error
         end
         # assert that the new file exits
-        File.readable?(to_file) ? to_file : raise(CouldNotConvertError)
+        File.readable?(to_file) ? Imanip::Image.new(to_file, :magick) : raise(CouldNotConvertError)
       end
 
       private

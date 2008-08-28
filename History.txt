@@ -1,3 +1,13 @@
+== 0.1.2 2008-08-27
+
+* minor enhancements
+	* Magick#convert now returns an imanip image
+
+== 0.1.1 2008-06-13
+
+* 1 minor enhancement:
+  * Added rows and columns alias for width and height
+
 == 0.1.0 2008-06-13
 
 * 1 major enhancement:
