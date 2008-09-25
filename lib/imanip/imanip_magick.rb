@@ -116,14 +116,15 @@ module Imanip
 
       def to_geometry_string(width_height)
         # puts "width_height: #{width_height.inspect}"
-        case width_height
-        when Array
-          width_height.join("x")
-        when Hash
-          "#{width_height[:width]}x#{width_height[:height]}"
-        else
-          width_height.to_s
-        end
+        geometry_string = case width_height
+                          when Array
+                            width_height.join("x")
+                          when Hash
+                            "#{width_height[:width]}x#{width_height[:height]}"
+                          else
+                            width_height.to_s
+                          end
+       "'#{geometry_string}'"
       end
 
       def options_to_string(options)
