@@ -67,13 +67,14 @@ More examples coming soon.
 
 You need ImageMagick. Really any version will do, but I am developing with ImageMagick 6.3.3. 
 
-http://www.imagemagick.org/script/download.php
+[http://www.imagemagick.org/script/download.php]
 	
 
 == INSTALL:
 
 First, install ImageMagick:
-http://www.imagemagick.org/script/download.php
+
+[http://www.imagemagick.org/script/download.php]
 
 Make sure you get the command line tools:
 		

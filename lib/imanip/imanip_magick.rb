@@ -13,23 +13,40 @@ module Imanip
         @image_path = path
         identify
       end
+      
+
       alias_method :columns, :width
       alias_method :rows, :height
 
+      # Return the dimensions of the image as an array of Fixnums [width,height]
       def dimensions
         [width,height]
       end
-
+      
+      # Returns true if the image is taller then it is long
       def portrait?
         width < height
       end
 
+      # Returns true if the image is longer then it is tall
       def landscape?
         width > height
       end
 
+      # Returns true if width == height
+      def square?
+        width == height
+      end
+
+      # Returns symbol of the images orientation. Can be :landscape, :portrait, or :square
       def orientation
-        landscape? ? :landscape : :portrait
+        if landscape?
+          :landscape
+        elsif portrait?
+          :portrait
+        else
+          :square
+        end
       end
 
       def crop(to_file, options = {})
