@@ -47,6 +47,10 @@ class ImanipMagickTest < Test::Unit::TestCase
     assert !@portrait_image.landscape?
   end
   
+  def test_ratio_should_return_width_over_height
+    assert_equal(@landscape_image.width.to_f / @landscape_image.height.to_f, @landscape_image.ratio)
+  end
+  
   def test_resize_should_save_to_new_file
     assert !File.readable?(new_image_path)
     assert @portrait_image.resize(new_image_path, :width => 50)
@@ -71,6 +75,21 @@ class ImanipMagickTest < Test::Unit::TestCase
   def test_crop_resize_should_crop_and_resize_image_to_exact_dimensions
     dimensions = [200,153]
     assert @portrait_image.crop_resize(new_image_path, :dimensions => dimensions)
+    @new_image = new_imanip_image(new_image_path)
+    assert_equal dimensions, @new_image.dimensions
+    
+    dimensions = [200,153]
+    assert @landscape_image.crop_resize(new_image_path, :dimensions => dimensions)
+    @new_image = new_imanip_image(new_image_path)
+    assert_equal dimensions, @new_image.dimensions
+    
+    dimensions = [100,125]
+    assert @portrait_image.crop_resize(new_image_path, :dimensions => dimensions)
+    @new_image = new_imanip_image(new_image_path)
+    assert_equal dimensions, @new_image.dimensions
+    
+    dimensions = [100,125]
+    assert @landscape_image.crop_resize(new_image_path, :dimensions => dimensions)
     @new_image = new_imanip_image(new_image_path)
     assert_equal dimensions, @new_image.dimensions
   end

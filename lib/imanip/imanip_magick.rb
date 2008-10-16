@@ -49,6 +49,10 @@ module Imanip
         end
       end
 
+      def ratio
+        width.to_f / height.to_f
+      end
+
       def crop(to_file, options = {})
         @options = options
         parse_size_options!
@@ -70,13 +74,8 @@ module Imanip
         crop_width = @geometry[:width]
         crop_height =  @geometry[:height]
         if !(crop_height.nil? || crop_width.nil?)
-          if width == height
-            if portrait?
-              crop_resize_string << "-resize #{to_geometry_string(:width => crop_width)}"
-            else
-              crop_resize_string << "-resize #{to_geometry_string(:height => crop_height)}"
-            end
-          elsif portrait?
+          crop_ratio = crop_width.to_f / crop_height.to_f
+          if crop_ratio > ratio
             crop_resize_string << "-resize #{to_geometry_string(:width => crop_width)}"
           else
             crop_resize_string << "-resize #{to_geometry_string(:height => crop_height)}"
