@@ -1,3 +1,9 @@
+== 0.1.4 2008-10-16
+
+* minor enhancements
+	* Added Image#ratio
+	* Crop resize is way better based on ratios
+
 == 0.1.2 2008-08-27
 
 * minor enhancements
