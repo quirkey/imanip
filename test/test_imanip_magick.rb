@@ -114,7 +114,15 @@ class ImanipMagickTest < Test::Unit::TestCase
     end
   end
 
-  protected
+  def test_should_be_shell_safe
+    dimensions = [100, 100]
+    # exception should be thrown when identifying image
+    # since ; is in path trying to run a second command
+    assert_raises(Imanip::NotAnImageError) do
+      image = Imanip::Image.new("#{landscape_image_path};blah")
+    end
+  end
+
   def new_imanip_image(path,interface = :magick)
     Imanip::Image.new(path,interface)
   end
