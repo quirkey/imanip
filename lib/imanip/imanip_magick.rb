@@ -13,7 +13,7 @@ module Imanip
         @image_path = path
         identify
       end
-      
+
 
       alias_method :columns, :width
       alias_method :rows, :height
@@ -22,7 +22,7 @@ module Imanip
       def dimensions
         [width,height]
       end
-      
+
       # Returns true if the image is taller then it is long
       def portrait?
         width < height
@@ -123,7 +123,7 @@ module Imanip
           @geometry = {:width => width, :height => height}
         end
         if @options[:dimensions]
-          width, height = @options.delete(:dimensions) 
+          width, height = @options.delete(:dimensions)
           @geometry = {:width => width, :height => height}
         end
         @geometry = {:width => @options.delete(:width), :height => @options.delete(:height) } if @options[:width] || @options[:height]

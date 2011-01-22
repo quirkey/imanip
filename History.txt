@@ -1,15 +1,15 @@
 == 0.1.4 2008-10-16
 
 * minor enhancements
-	* Added Image#ratio
-	* Crop resize is way better based on ratios
+  * Added Image#ratio
+  * Crop resize is way better based on ratios
 
 == 0.1.2 2008-08-27
 
 * minor enhancements
-	* Magick#convert now returns an imanip image
-	* Image#square?
-	* some inline documentation
+  * Magick#convert now returns an imanip image
+  * Image#square?
+  * some inline documentation
 
 == 0.1.1 2008-06-13
 
