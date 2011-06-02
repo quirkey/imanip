@@ -13,7 +13,6 @@ module Imanip
         @image_path = path
         identify
       end
-      
 
       alias_method :columns, :width
       alias_method :rows, :height
@@ -22,7 +21,7 @@ module Imanip
       def dimensions
         [width,height]
       end
-      
+
       # Returns true if the image is taller then it is long
       def portrait?
         width < height
@@ -84,7 +83,7 @@ module Imanip
           crop_resize_string << "-resize #{to_geometry_string(:height => crop_height, :width => crop_width)}"
         end
         gravity = @options.delete(:gravity) || 'North'
-        crop_resize_string << " -gravity '#{gravity}'"
+        crop_resize_string << " -gravity #{gravity}"
         crop_resize_string << " -crop #{to_geometry_string(@geometry)}+0+0"
         crop_resize_string << " #{options_to_string(@options)}"
         convert(to_file,crop_resize_string)
@@ -123,7 +122,7 @@ module Imanip
           @geometry = {:width => width, :height => height}
         end
         if @options[:dimensions]
-          width, height = @options.delete(:dimensions) 
+          width, height = @options.delete(:dimensions)
           @geometry = {:width => width, :height => height}
         end
         @geometry = {:width => @options.delete(:width), :height => @options.delete(:height) } if @options[:width] || @options[:height]
@@ -140,7 +139,7 @@ module Imanip
                           else
                             width_height.to_s
                           end
-       "'#{geometry_string}'"
+       "#{geometry_string}"
       end
 
       def options_to_string(options)
@@ -153,13 +152,13 @@ module Imanip
       end
 
       def execute(command)
-        `#{command} 2>&1`
+        pieces = command.split(' ')
+        SafeShell.execute(pieces[0], *pieces[1..-1])
       end
 
       def execute_path
         self.class.execute_path
       end
     end
-
   end
 end
