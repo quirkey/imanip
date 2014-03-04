@@ -89,21 +89,21 @@ module Imanip
         convert(to_file,crop_resize_string)
       end
       alias :crop_resized :crop_resize
-      
+
       def scale_resize(to_file, options = {})
         @options = options.dup
         parse_size_options!
-        crop_resize_string = ""
-        crop_width = @geometry[:width]
-        crop_height =  @geometry[:height]
+        scale_resize_string = ""
+        preserve_width = @geometry[:width]
+        preserve_height =  @geometry[:height]
         scale_width = @scale[:width]
         scale_height = @scale[:height]
         gravity = @options.delete(:gravity) || 'center'
         background = @options.delete(:background) || 'white'
-        crop_resize_string << " -background #{background} -scale #{to_geometry_string(:height => scale_height, :width => scale_width)} -extent #{to_geometry_string(:height => crop_height, :width => crop_width)}"
-        crop_resize_string << " -gravity #{gravity}"
-        crop_resize_string << " #{options_to_string(@options)}"
-        convert(to_file,crop_resize_string)
+        scale_resize_string << " -background #{background} -scale #{to_geometry_string(:height => preserve_height, :width => preserve_width)} -extent #{to_geometry_string(:height => scale_height, :width => scale_width)}"
+        scale_resize_string << " -gravity #{gravity}"
+        scale_resize_string << " #{options_to_string(@options)}"
+        convert(to_file,scale_resize_string)
       end
 
       def identify(options = {})

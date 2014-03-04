@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    imanip (0.1.4)
+    imanip (0.1.5)
       safe_shell (~> 1.0)
 
 GEM
@@ -10,7 +10,7 @@ GEM
     mocha (0.9.8)
       rake
     rake (0.8.7)
-    safe_shell (1.0.0)
+    safe_shell (1.0.2)
 
 PLATFORMS
   ruby
