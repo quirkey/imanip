@@ -94,6 +94,20 @@ class ImanipMagickTest < Test::Unit::TestCase
     assert_equal dimensions, @new_image.dimensions
   end
 
+  def test_scale_resize_should_scale_and_resize_image_to_scaled_dimensions
+    dimensions = [400,315]
+    scaled = [600,315]
+    assert @landscape_image.scale_resize(new_image_path, :dimensions => dimensions, :scale => scaled)
+    @new_image = new_imanip_image(new_image_path)
+    assert_equal scaled, @new_image.dimensions
+
+    dimensions = [411,519]
+    scaled = [411,600]
+    assert @portrait_image.scale_resize(new_image_path, :dimensions => dimensions, :scale => scaled)
+    @new_image = new_imanip_image(new_image_path)
+    assert_equal scaled, @new_image.dimensions
+  end
+
   def test_crop_resize_should_crop_and_resize_image_to_exact_dimensions_with_square_dimensions
     dimensions = [100,100]
     assert @landscape_image.crop_resize(new_image_path, :dimensions => dimensions)

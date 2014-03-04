@@ -90,6 +90,22 @@ module Imanip
       end
       alias :crop_resized :crop_resize
 
+      def scale_resize(to_file, options = {})
+        @options = options.dup
+        parse_size_options!
+        scale_resize_string = ""
+        preserve_width = @geometry[:width]
+        preserve_height =  @geometry[:height]
+        scale_width = @scale[:width]
+        scale_height = @scale[:height]
+        gravity = @options.delete(:gravity) || 'center'
+        background = @options.delete(:background) || 'white'
+        scale_resize_string << " -background #{background} -scale #{to_geometry_string(:height => preserve_height, :width => preserve_width)} -extent #{to_geometry_string(:height => scale_height, :width => scale_width)}"
+        scale_resize_string << " -gravity #{gravity}"
+        scale_resize_string << " #{options_to_string(@options)}"
+        convert(to_file,scale_resize_string)
+      end
+
       def identify(options = {})
         response = execute("#{execute_path}identify #{options_to_string(options)} #{@image_path}")
         matches = response.match(/(JPEG|PNG|GIF)\ (\d+)x(\d+)/)
@@ -117,6 +133,7 @@ module Imanip
 
       def parse_size_options!
         @geometry = {}
+        @scale = {}
         if @options[:geometry]
           width, height = @options.delete(:geometry).split('x')
           @geometry = {:width => width, :height => height}
@@ -124,6 +141,10 @@ module Imanip
         if @options[:dimensions]
           width, height = @options.delete(:dimensions)
           @geometry = {:width => width, :height => height}
+        end
+        if @options[:scale]
+          width, height = @options.delete(:scale)
+          @scale = {:width => width, :height => height}
         end
         @geometry = {:width => @options.delete(:width), :height => @options.delete(:height) } if @options[:width] || @options[:height]
         @geometry.collect {|d| d[1].to_i unless d.nil? }
